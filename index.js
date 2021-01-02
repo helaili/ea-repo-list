@@ -28,7 +28,7 @@ try {
     enterpriseName: enterprise
   }
   
-  const orgs = getOrgs(query, variables)
+  const orgs = getOrgs(github, query, variables)
 
   core.setOutput('repo-list', orgs)
   if(outputFilename) {
@@ -38,14 +38,14 @@ try {
   core.setFailed(error.message);
 }
 
-function getOrgs(query, variables, orgs = []) {
+function getOrgs(github, query, variables, orgs = []) {
   github.graphql(query, variables).then(results => {
     const newOrgList = orgs.concat(result.enterprise.organizations.nodes)
     const hasNextPage = result.enterprise.organizations.pageInfo.hasNextPage
     
     if (hasNextPage) {
       variables.cursor = result.enterprise.organizations.pageInfo.endCursor
-      return getOrgs(query, variables, newOrgList)
+      return getOrgs(github, query, variables, newOrgList)
     } else {
       return newOrgList
     }
