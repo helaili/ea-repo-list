@@ -39,6 +39,7 @@ try {
 }
 
 function getOrgs(github, query, variables, orgs = []) {
+  console.log(github)
   github.graphql(query, variables).then(results => {
     const newOrgList = orgs.concat(result.enterprise.organizations.nodes)
     const hasNextPage = result.enterprise.organizations.pageInfo.hasNextPage
