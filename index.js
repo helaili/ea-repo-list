@@ -49,9 +49,9 @@ async function run() {
         per_page: 100
       }).then(result => {
         console.log(result)
-      }).catch(error) {
+      }).catch(error => {
         core.error(error)
-      }
+      })
       
     }
     core.setOutput('repo-list', orgs)
