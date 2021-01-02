@@ -1,21 +1,15 @@
-const core = require('@actions/core')
-const github = require('@actions/github')
-const { createActionAuth } = require('@octokit/auth-action');
 const fs = require('fs')
+const core = require('@actions/core')
+const { createActionAuth } = require('@octokit/auth-action');
+const { Octokit } = require('@octokit/rest');
+const octokit = new Octokit({
+  authStrategy: createActionAuth,
+})
 
 async function run() {
   try {
-    // const auth = createActionAuth()
-    // const authentication = await auth()
-    // console.log(authentication)
-
     const enterprise = core.getInput('enterprise')
     const outputFilename = core.getInput('outputFilename')
-    const token = core.getInput('token')
-    console.log(token)
-    const octokit = github.getOctokit({
-      authStrategy: createActionAuth
-    })
 
     console.log(`Retrieving repositories for ${enterprise}!`)
     
