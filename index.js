@@ -7,12 +7,13 @@ async function run() {
   try {
     const auth = createActionAuth()
     const authentication = await auth()
-    
+    console.log(authentication)
+
     const enterprise = core.getInput('enterprise')
     const outputFilename = core.getInput('outputFilename')
     const token = core.getInput('token')
     console.log(token)
-    const octokit = github.getOctokit()
+    const octokit = github.getOctokit({auth: authentication})
 
     console.log(`Retrieving repositories for ${enterprise}!`)
     
