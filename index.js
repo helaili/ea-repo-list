@@ -44,7 +44,7 @@ async function run() {
     }
 
     for (let org of orgs) {
-      octokit.paginate(octokit.repos.listForOrg, {
+      await octokit.paginate(octokit.repos.listForOrg, {
         org: org.login, 
         type: 'internal'
       }).then(result => {
