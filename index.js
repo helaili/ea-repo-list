@@ -43,12 +43,16 @@ async function run() {
       variables.cursor = result.enterprise.organizations.pageInfo.endCursor
     }
     for (org of orgs) {
-      const result = octokit.repos.listForOrg({
+      octokit.repos.listForOrg({
         org: org.login, 
         type: 'internal',
         per_page: 100
-      })
-      console.log(result)
+      }).then(result => {
+        console.log(result)
+      }).catch(error) {
+        core.error(error)
+      }
+      
     }
     core.setOutput('repo-list', orgs)
     if(outputFilename) {
