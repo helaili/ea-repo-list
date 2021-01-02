@@ -42,7 +42,14 @@ async function run() {
       hasNextPage = result.enterprise.organizations.pageInfo.hasNextPage
       variables.cursor = result.enterprise.organizations.pageInfo.endCursor
     }
-
+    for (org of orgs) {
+      const result = octokit.repos.listForOrg({
+        org: org.login, 
+        type: 'internal',
+        per_page: 100
+      })
+      console.log(result)
+    }
     core.setOutput('repo-list', orgs)
     if(outputFilename) {
       fs.writeFileSync(outputFilename, JSON.stringify(orgs))
