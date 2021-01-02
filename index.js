@@ -13,7 +13,7 @@ async function run() {
     const outputFilename = core.getInput('outputFilename')
     const token = core.getInput('token')
     console.log(token)
-    const octokit = github.getOctokit(token)
+    const octokit = github.getOctokit()
 
     console.log(`Retrieving repositories for ${enterprise}!`)
     
