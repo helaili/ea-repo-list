@@ -1,13 +1,13 @@
 const core = require('@actions/core')
 const github = require('@actions/github')
-const { createActionAuth } = require('@octokit/auth-action');
+// const { createActionAuth } = require('@octokit/auth-action');
 const fs = require('fs')
 
 async function run() {
   try {
-    const auth = createActionAuth()
-    const authentication = await auth()
-    console.log(authentication)
+    // const auth = createActionAuth()
+    // const authentication = await auth()
+    // console.log(authentication)
 
     const enterprise = core.getInput('enterprise')
     const outputFilename = core.getInput('outputFilename')
