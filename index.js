@@ -44,15 +44,13 @@ async function run() {
     }
 
     for (let org of orgs) {
-      console.log(`working on ${org.login}`)
       octokit.paginate(octokit.repos.listForOrg, {
         org: org.login, 
-        type: 'internal',
-        per_page: 100
+        type: 'internal'
       }).then(result => {
-        console.log(`${org.login} is ok`)
+        org.repos = result
       }).catch(error => {
-        core.error(error)
+        core.error(`${org.login} - ${error}`)
       })
     }
 
