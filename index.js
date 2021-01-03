@@ -47,8 +47,11 @@ async function run() {
       await octokit.paginate(octokit.repos.listForOrg, {
         org: org.login, 
         type: 'internal'
-      }).then(result => {
-        org.repos = result
+      }).then(repos => {
+        org.repos = []
+        for(let repo of repos) {
+          org.repos.push({name, login, fullname, html_url, description, stargazers_count, watchers_count, is_template, topics} = repo)
+        }
       }).catch(error => {
         core.error(`${org.login} - ${error}`)
       })
