@@ -34,6 +34,7 @@ async function run() {
     
     let hasNextPage = true
     let orgs = []
+    let orgsWitRepo = []
 
     while (hasNextPage) {
       const result = await octokit.graphql(query, variables)
@@ -49,17 +50,21 @@ async function run() {
       }).then(repos => {
         org.repositories = []
         for(let repo of repos) {
-          org.repositories.push(repo)
+          let {name, full_name, description, url, stargazers_count, watchers_count, topics} = repo
+          org.repositories.push({name, full_name, description, url, stargazers_count, watchers_count, topics})
+        }
+        if (org.repositories.length > 0) {
+          orgsWitRepo.push(org)
         }
       }).catch(error => {
         core.error(`${org.login} - ${error}`)
       })
     }
 
-    core.setOutput('repo-list', orgs)
+    core.setOutput('repo-list', orgsWitRepo)
     if(outputFilename) {
       core.info(`Saving repositories to ${outputFilename}`)
-      fs.writeFileSync(outputFilename, JSON.stringify(orgs))
+      fs.writeFileSync(outputFilename, JSON.stringify(orgsWitRepo))
     }
   } catch (error) {
     core.setFailed(error.message);
