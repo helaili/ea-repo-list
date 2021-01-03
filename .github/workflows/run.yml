@@ -1,0 +1,22 @@
+name: Repository list
+
+on:
+  workflow_dispatch:
+
+jobs:
+  repo-list:
+    runs-on: ubuntu-latest
+ 
+    steps:
+    - name: Checkout Locally
+      uses: actions/checkout@v2
+      if: ${{ env.ACT }}
+      with:
+        path: "ea-repo-list"
+    - name: Get orgs
+      uses: ./
+      with:
+        enterprise: octodemo
+        outputFilename: orgs.json
+        token: ${{secrets.GH_EA_TOKEN}}
+    

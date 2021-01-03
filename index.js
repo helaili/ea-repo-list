@@ -48,9 +48,9 @@ async function run() {
         org: org.login, 
         type: 'internal'
       }).then(repos => {
-        org.repos = []
+        org.repositories = []
         for(let repo of repos) {
-          org.repos.push({name, login, fullname, html_url, description, stargazers_count, watchers_count, is_template, topics} = repo)
+          org.repositories.push(repo)
         }
       }).catch(error => {
         core.error(`${org.login} - ${error}`)
