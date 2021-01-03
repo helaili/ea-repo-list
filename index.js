@@ -11,8 +11,7 @@ async function run() {
     const enterprise = core.getInput('enterprise')
     const outputFilename = core.getInput('outputFilename')
 
-    console.log(`Retrieving repositories for ${enterprise}!`)
-    
+    core.info(`Retrieving repositories for ${enterprise}!`)
     const query = `query($enterpriseName:String!, $cursor:String) {
       enterprise(slug: $enterpriseName) {
         name
@@ -59,6 +58,7 @@ async function run() {
 
     core.setOutput('repo-list', orgs)
     if(outputFilename) {
+      core.info(`Saving repositories to ${outputFilename}`)
       fs.writeFileSync(outputFilename, JSON.stringify(orgs))
     }
   } catch (error) {
