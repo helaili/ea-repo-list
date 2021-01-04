@@ -15,7 +15,7 @@ async function run() {
     const query = `query($enterpriseName:String!, $cursor:String) {
       enterprise(slug: $enterpriseName) {
         name
-        organizations(first: 10, after: $cursor) {
+        organizations(first: 100, after: $cursor) {
           pageInfo {
             hasNextPage
             endCursor
@@ -34,7 +34,7 @@ async function run() {
     
     let hasNextPage = true
     let orgs = []
-    let orgsWitRepo = []
+    let repoResult = []
 
     while (hasNextPage) {
       const result = await octokit.graphql(query, variables)
@@ -48,23 +48,19 @@ async function run() {
         org: org.login, 
         type: 'internal'
       }).then(repos => {
-        org.repositories = []
         for(let repo of repos) {
           let {name, full_name, description, url, stargazers_count, watchers_count, topics} = repo
-          org.repositories.push({name, full_name, description, url, stargazers_count, watchers_count, topics})
-        }
-        if (org.repositories.length > 0) {
-          orgsWitRepo.push(org)
+          repoResult.push({name, full_name, description, url, stargazers_count, watchers_count, topics, org})
         }
       }).catch(error => {
         core.error(`${org.login} - ${error}`)
       })
     }
 
-    core.setOutput('repo-list', orgsWitRepo)
+    core.setOutput('repo-list', repoResult)
     if(outputFilename) {
       core.info(`Saving repositories to ${outputFilename}`)
-      fs.writeFileSync(outputFilename, JSON.stringify(orgsWitRepo))
+      fs.writeFileSync(outputFilename, JSON.stringify(repoResult))
     }
   } catch (error) {
     core.setFailed(error.message);
