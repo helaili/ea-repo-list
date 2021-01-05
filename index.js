@@ -4,6 +4,7 @@ const { createActionAuth } = require('@octokit/auth-action');
 const { Octokit } = require('@octokit/rest');
 const octokit = new Octokit({
   authStrategy: createActionAuth,
+  previews: ["mercy-preview"]
 })
 
 async function run() {
