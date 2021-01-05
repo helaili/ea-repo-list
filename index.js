@@ -50,8 +50,8 @@ async function run() {
       }).then(repos => {
         org.repositories = []
         for(let repo of repos) {
-          let {name, full_name, description, url, stargazers_count, watchers_count, topics} = repo
-          org.repositories.push({name, full_name, description, url, stargazers_count, watchers_count, topics})
+          let {name, full_name, description, url, stargazers_count, watchers_count, forks_count, topics} = repo
+          org.repositories.push({name, full_name, description, url, stargazers_count, watchers_count, forks_count, topics})
         }
         if (org.repositories.length > 0) {
           orgsWitRepo.push(org)
