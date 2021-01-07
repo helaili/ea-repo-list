@@ -50,8 +50,8 @@ async function run() {
         type: 'internal'
       }).then(repos => {
         for(let repo of repos) {
-          let {name, full_name, description, url, stargazers_count, watchers_count, forks_count, topics} = repo
-          repoResult.push({name, full_name, description, url, stargazers_count, watchers_count, forks_count, topics, org})
+          let {name, full_name, description, html_url, language, stargazers_count, watchers_count, forks_count, topics} = repo
+          repoResult.push({name, full_name, description, html_url, language, stargazers_count, watchers_count, forks_count, topics, org})
         }
       }).catch(error => {
         core.error(`${org.login} - ${error}`)
