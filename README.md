@@ -6,11 +6,11 @@ This action retrieves all `internal` repositories from your GitHub Enterprise Ac
 
 ### `enterprise`
 
-**Required** The name of the enteprise account.
+**Required** The name of the Enterprise Account.
 
 ### `token`
 
-**Required** A GitHub Personal Access Token allowing to browse the Enterprise Account. Note that this token must be allowed with all SAML enabled organizations. 
+**Required** A [GitHub Personal Access Token](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token) allowing to browse the Enterprise Account. Note that this token must be allowed with all SAML enabled organizations. 
 
 ### `outputFilename`
 
