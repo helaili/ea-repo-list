@@ -10,7 +10,9 @@ This action retrieves all `internal` repositories from your GitHub Enterprise Ac
 
 ### `token`
 
-**Required** A [GitHub Personal Access Token](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token) allowing to browse the Enterprise Account. Note that this token must be allowed with all SAML enabled organizations. 
+**Required** A [GitHub Personal Access Token](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token) allowing to browse the Enterprise Account thanks to the `read:org` and `read:enterprise` permissions. Note that this token must be allowed with all SAML enabled organizations. 
+
+<img width="797" alt="Screen Shot 2021-01-25 at 22 01 39" src="https://user-images.githubusercontent.com/2787414/105766100-9c10b200-5f59-11eb-9e16-55641a8aa8ae.png">
 
 ### `outputFilename`
 
