@@ -2,7 +2,7 @@ name: 'EA Repo List'
 description: 'Retrieve all internal repositories from a GitHub Enteprise Account'
 inputs:
   enterprise:  
-    description: 'Name of the enteprise account'
+    description: 'Name of the Enterprise Account'
     required: true
   outputFilename:  
     description: 'File to write the repo list to'
