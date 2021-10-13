@@ -18,6 +18,10 @@ This action retrieves all `internal` repositories from your GitHub Enterprise Ac
 
 The file to write the list of repositories to. 
 
+### `ghes`
+
+The URL to the GHES instance e.g. https://my-ghes.com
+
 ## Outputs
 
 ### `repo-list`
