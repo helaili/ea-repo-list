@@ -2,15 +2,26 @@ const fs = require('fs')
 const core = require('@actions/core')
 const { createActionAuth } = require('@octokit/auth-action');
 const { Octokit } = require('@octokit/rest');
-const octokit = new Octokit({
-  authStrategy: createActionAuth,
-  previews: ["mercy-preview"]
-})
 
 async function run() {
   try {
     const enterprise = core.getInput('enterprise')
     const outputFilename = core.getInput('outputFilename')
+    const ghes = core.getInput('ghes')
+
+    let octokit
+    if (ghes) {
+      octokit = new Octokit({
+        baseUrl: ghes + "/api/v3",
+        authStrategy: createActionAuth,
+        previews: ["mercy-preview"]
+      })
+    } else {
+      octokit = new Octokit({
+        authStrategy: createActionAuth,
+        previews: ["mercy-preview"]
+      })
+    }
 
     core.info(`Retrieving repositories for ${enterprise}!`)
     const query = `query($enterpriseName:String!, $cursor:String) {
